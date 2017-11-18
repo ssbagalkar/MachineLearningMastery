@@ -10,6 +10,7 @@
 
 import csv
 import random
+import math
 
 ## Write a function to load the csv data
 def loadCsv(filename):
@@ -47,3 +48,12 @@ def separateByClass(dataset):
 
 separated = separateByClass(dataset)
 
+# define function to calculate  mean
+def mean(numbers):
+    return sum(numbers)/float(len(numbers))
+
+# define function to calculate standard deviation
+def stdev(numbers):
+    avg = mean(numbers)
+    variance = sum([pow(x - avg,2) for x in numbers])
+    return math.sqrt(variance)
