@@ -1,5 +1,5 @@
 # This script implements machine learning algorithm Naive Bayes from scratch
-
+# https://machinelearningmastery.com/naive-bayes-classifier-scratch-python/
 ## Here's how we will solve it
 #Handle Data: Load the data from CSV file and split it into training and test datasets.
 #Summarize Data: summarize the properties in the training dataset so that we can calculate probabilities and make predictions.
@@ -19,10 +19,9 @@ def loadCsv(filename):
 
 filename = 'pima-indians.csv'
 dataset = loadCsv(filename)
-#print('Loaded data file {0} with {1} rows').format(filename, len(dataset))
 
 
-
+# Funtion to split dataset into train and test
 def splitDataset(dataset, splitRatio):
     trainSize = int(len(dataset) * splitRatio)
     trainSet = []
@@ -32,7 +31,19 @@ def splitDataset(dataset, splitRatio):
         trainSet.append(copy.pop(index))
     return [trainSet, copy]
 
-#dataset = [[1], [2], [3], [4], [5]]
 splitRatio = 0.67
 train, test = splitDataset(dataset, splitRatio)
-#print('Split {0} rows into train with {1} and test with {2}').format(len(dataset), train, test)
+
+# Separate data by class
+def separateByClass(dataset):
+    separated = {}
+    for i in range(len(dataset)):
+        vector = dataset[i]
+        if (vector[-1] not in separated):
+            separated[vector[-1]] = []
+        separated[vector[-1]].append(vector)
+    return separated
+
+
+separated = separateByClass(dataset)
+
