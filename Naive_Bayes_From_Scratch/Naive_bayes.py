@@ -108,7 +108,7 @@ def getAccuracy(testSet, predictions):
 
 def main():
     filename = 'pima-indians.csv'
-    splitRatio = 0.67
+    splitRatio = 0.75
     dataset = loadCsv(filename)
     trainingSet, testSet = splitDataset(dataset, splitRatio)
     print('Split {0} rows into train={1} and test={2} rows'.format(len(dataset), len(trainingSet), len(testSet)))
