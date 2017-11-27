@@ -51,7 +51,6 @@ def separateByClass(dataset):
         separated[vector[-1]].append(vector)
     return separated
 
-separated = separateByClass(train)
 
 # define function to calculate  mean
 def mean(numbers):
@@ -63,15 +62,13 @@ def stdev(numbers):
     variance = sum([pow(x - avg,2) for x in numbers])/float(len(numbers)-1)
     return math.sqrt(variance)
 
+# define function to summarize dataset
 def summarize(dataset):
     summaries = [(mean(attribute), stdev(attribute)) for attribute in zip(*dataset)]
     del summaries[-1]
     return summaries
 
-#dataset = [[1,20,0], [2,21,1], [3,22,0]]
-summary = summarize(train)
-#print('Summary by class value: {0}'.format(summary))
-
+# define function to summarize dataset by class
 def summarizeByClass(dataset):
     separated = separateByClass(dataset)
     summaries = {}
