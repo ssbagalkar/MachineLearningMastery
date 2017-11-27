@@ -22,11 +22,6 @@ def loadCsv(filename):
         myList.append(a)
     return myList
 
-filename = 'pima-indians.csv'
-dataset = loadCsv(filename)
-
-print('Loaded data file {0} with {1} rows'.format(filename, len(dataset)))
-
 # Funtion to split dataset into train and test
 def splitDataset(dataset, splitRatio):
     trainSize = int(len(dataset) * splitRatio)
@@ -36,10 +31,6 @@ def splitDataset(dataset, splitRatio):
         index = random.randrange(len(copy))
         trainSet.append(copy.pop(index))
     return [trainSet, copy]
-
-splitRatio = 0.67
-train, test = splitDataset(dataset, splitRatio)
-print('Split {0} rows into train={1} and test={2} rows'.format(len(dataset), len(train), len(test)))
 
 # Separate data by class
 def separateByClass(dataset):
@@ -76,8 +67,6 @@ def summarizeByClass(dataset):
         summaries[classValue] = summarize(instances)
     return summaries
 
-summary = summarizeByClass(train)
-
 # calculate probability
 def calculateProbability(x, mean, stdev):
     exponent = math.exp(-(math.pow(x-mean,2)/(2*math.pow(stdev,2))))
@@ -102,3 +91,33 @@ def predict(summaries, inputVector):
             bestLabel = classValue
     return bestLabel
 
+def getPredictions(summaries, testSet):
+    predictions = []
+    for i in range(len(testSet)):
+        result = predict(summaries, testSet[i])
+        predictions.append(result)
+    return predictions
+
+def getAccuracy(testSet, predictions):
+    correct = 0
+    for x in range(len(testSet)):
+        if testSet[x][-1] == predictions[x]:
+            correct += 1
+    return (correct/float(len(testSet))) * 100.0
+
+
+def main():
+    filename = 'pima-indians.csv'
+    splitRatio = 0.67
+    dataset = loadCsv(filename)
+    trainingSet, testSet = splitDataset(dataset, splitRatio)
+    print('Split {0} rows into train={1} and test={2} rows'.format(len(dataset), len(trainingSet), len(testSet)))
+    # prepare model
+    summaries = summarizeByClass(trainingSet)
+    # test model
+    predictions = getPredictions(summaries, testSet)
+    accuracy = getAccuracy(testSet, predictions)
+    print('Accuracy: {0}%'.format(accuracy))
+
+
+main()
