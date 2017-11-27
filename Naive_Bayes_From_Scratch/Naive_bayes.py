@@ -16,10 +16,15 @@ import math
 def loadCsv(filename):
     lines = csv.reader(open(filename,"r"))
     dataset = list(lines)
-    return dataset
+    myList = []
+    for ii in range(len(dataset)):
+        a = [float(x) for x in dataset[ii][0].split(',')]
+        myList.append(a)
+    return myList
 
 filename = 'pima-indians.csv'
 dataset = loadCsv(filename)
+
 print('Loaded data file {0} with {1} rows'.format(filename, len(dataset)))
 
 # Funtion to split dataset into train and test
@@ -46,8 +51,7 @@ def separateByClass(dataset):
         separated[vector[-1]].append(vector)
     return separated
 
-
-separated = separateByClass(dataset)
+separated = separateByClass(train)
 
 # define function to calculate  mean
 def mean(numbers):
@@ -64,7 +68,6 @@ def summarize(dataset):
     del summaries[-1]
     return summaries
 
-#dataset = [[1,20,0], [2,21,1], [3,22,0]]
 summary = summarize(dataset)
 
 def summarizeByClass(dataset):
