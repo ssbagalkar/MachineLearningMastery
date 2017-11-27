@@ -20,7 +20,7 @@ def loadCsv(filename):
 
 filename = 'pima-indians.csv'
 dataset = loadCsv(filename)
-print('Loaded data file {0} with {1} rows').format(filename, len(dataset))
+print('Loaded data file {0} with {1} rows'.format(filename, len(dataset)))
 
 # Funtion to split dataset into train and test
 def splitDataset(dataset, splitRatio):
@@ -34,6 +34,7 @@ def splitDataset(dataset, splitRatio):
 
 splitRatio = 0.67
 train, test = splitDataset(dataset, splitRatio)
+print('Split {0} rows into train={1} and test={2} rows'.format(len(dataset), len(train), len(test)))
 
 # Separate data by class
 def separateByClass(dataset):
