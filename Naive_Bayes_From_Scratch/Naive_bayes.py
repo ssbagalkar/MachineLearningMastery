@@ -60,7 +60,7 @@ def mean(numbers):
 # define function to calculate standard deviation
 def stdev(numbers):
     avg = mean(numbers)
-    variance = sum([pow(x - avg,2) for x in numbers])
+    variance = sum([pow(x - avg,2) for x in numbers])/float(len(numbers)-1)
     return math.sqrt(variance)
 
 def summarize(dataset):
@@ -68,15 +68,15 @@ def summarize(dataset):
     del summaries[-1]
     return summaries
 
-summary = summarize(dataset)
+#dataset = [[1,20,0], [2,21,1], [3,22,0]]
+summary = summarize(train)
+#print('Summary by class value: {0}'.format(summary))
 
 def summarizeByClass(dataset):
     separated = separateByClass(dataset)
     summaries = {}
-    for classValue, instances in separated.iteritems():
+    for classValue, instances in separated.items():
         summaries[classValue] = summarize(instances)
     return summaries
 
-
-dataset = [[1,20,1], [2,21,0], [3,22,1], [4,22,0]]
-summary = summarizeByClass(dataset)
+summary = summarizeByClass(train)
