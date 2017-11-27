@@ -20,7 +20,7 @@ def loadCsv(filename):
 
 filename = 'pima-indians.csv'
 dataset = loadCsv(filename)
-
+print('Loaded data file {0} with {1} rows').format(filename, len(dataset))
 
 # Funtion to split dataset into train and test
 def splitDataset(dataset, splitRatio):
@@ -57,3 +57,22 @@ def stdev(numbers):
     avg = mean(numbers)
     variance = sum([pow(x - avg,2) for x in numbers])
     return math.sqrt(variance)
+
+def summarize(dataset):
+    summaries = [(mean(attribute), stdev(attribute)) for attribute in zip(*dataset)]
+    del summaries[-1]
+    return summaries
+
+#dataset = [[1,20,0], [2,21,1], [3,22,0]]
+summary = summarize(dataset)
+
+def summarizeByClass(dataset):
+    separated = separateByClass(dataset)
+    summaries = {}
+    for classValue, instances in separated.iteritems():
+        summaries[classValue] = summarize(instances)
+    return summaries
+
+
+dataset = [[1,20,1], [2,21,0], [3,22,1], [4,22,0]]
+summary = summarizeByClass(dataset)
